@@ -28,7 +28,7 @@ const HomeAbout = () => {
                         </div>
 
                         {/* Experience Badge */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white rounded-full w-32 h-32 md:w-40 md:h-40 flex flex-col items-center justify-center shadow-2xl border-8 border-white animate-spin-slow-pause">
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white rounded-full w-32 h-32 md:w-40 md:h-40 flex flex-col items-center justify-center shadow-2xl border-8 border-white animate-spin-slow">
                             <span className="text-3xl md:text-4xl font-bold">12+</span>
                             <span className="text-xs uppercase tracking-wider opacity-80 mt-1">Years Exp.</span>
                         </div>

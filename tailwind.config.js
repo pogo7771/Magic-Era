@@ -26,6 +26,7 @@ export default {
                 'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                 'scroll': 'scroll 20s linear infinite',
                 'spin-slow': 'spin 3s linear infinite',
+                'bounce-slow': 'bounce 3s infinite ease-in-out',
             },
             keyframes: {
                 fadeInUp: {

@@ -12,6 +12,8 @@ import Portfolio from './pages/Portfolio';
 import EnquiryModal from './components/EnquiryModal';
 import { ToastProvider } from './context/ToastContext';
 import Loader from './components/Loader';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -25,6 +27,12 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      easing: 'ease-out-cubic',
+    });
+
     const timer = setTimeout(() => {
       setLoading(false);
     }, 2000);
