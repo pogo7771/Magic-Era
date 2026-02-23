@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, User, Phone, Sparkles } from 'lucide-react';
-import { useToast } from '../context/ToastContext';
+import { useToast } from '../context/useToast';
 
 const EnquiryModal = () => {
     const { addToast } = useToast();

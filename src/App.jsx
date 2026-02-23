@@ -10,7 +10,7 @@ import Courses from './components/Courses';
 import Career from './pages/Career';
 import Portfolio from './pages/Portfolio';
 import EnquiryModal from './components/EnquiryModal';
-import { ToastProvider } from './context/ToastContext';
+import { ToastProvider } from './context/ToastProvider';
 import Loader from './components/Loader';
 import AOS from 'aos';
 import 'aos/dist/aos.css';

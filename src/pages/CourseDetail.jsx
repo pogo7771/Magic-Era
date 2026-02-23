@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { useToast } from '../context/ToastContext';
+import { useToast } from '../context/useToast';
 import {
   CheckCircle, Clock, Calendar, Award, BookOpen,
   ArrowRight, Star, ChevronDown, MonitorPlay,
@@ -209,25 +209,7 @@ const CourseDetail = () => {
         { title: "Advanced", topics: ["Routing", "Forms", "Observables (RxJS)"] }
       ]
     },
-    '/ios': { // Typo in my prompt plan, user had iot
-      title: "Internet of Things (IoT)",
-      subtitle: "Connect Devices to the Internet",
-      category: "Technology",
-      rating: 4.7,
-      students: 400,
-      duration: "3-4 Months",
-      lectures: "50+",
-      projects: "Smart Home",
-      level: "Intermediate",
-      image: "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-      overview: "Dive into the world of IoT. Learn to program microcontrollers like Arduino and ESP8266, interface sensors, and communicate with the cloud.",
-      curriculum: [
-        { title: "Electronics", topics: ["Sensors", "Actuators", "Circuit Basics"] },
-        { title: "Microcontrollers", topics: ["Arduino", "Raspberry Pi", "ESP8266"] },
-        { title: "Cloud & App", topics: ["MQTT", "Blynk App", "Data Visualization"] }
-      ]
-    },
-    '/iot': { // Correct key
+    '/iot': {
       title: "Internet of Things (IoT)",
       subtitle: "Connect Devices to the Internet",
       category: "Technology",
@@ -484,7 +466,7 @@ const CourseDetail = () => {
                     <div className="relative z-10 grid sm:grid-cols-2 gap-8 items-center">
                       <div>
                         <h3 className="text-2xl font-bold mb-2">Build Your Portfolio</h3>
-                        <p className="text-slate-300 mb-6 text-sm">You won't just learn theory. You'll build real-world projects that get you hired.</p>
+                        <p className="text-slate-300 mb-6 text-sm">You won&apos;t just learn theory. You&apos;ll build real-world projects that get you hired.</p>
                         <button className="px-6 py-2.5 bg-white text-primary font-bold rounded-lg hover:bg-slate-100 transition-colors">
                           View Sample Projects
                         </button>
@@ -555,7 +537,7 @@ const CourseDetail = () => {
                       <h4 className="text-xl font-bold text-gray-900">Rahul Sharma</h4>
                       <p className="text-accent font-medium text-sm mb-3">Senior Software Engineer & Trainer</p>
                       <p className="text-slate-600 text-sm leading-relaxed mb-4">
-                        With over 10 years of industry experience, Rahul has trained 5000+ students. He specializes in Full Stack Development and Cloud Technologies. His teaching style primarily focuses on "Learning by Doing".
+                        With over 10 years of industry experience, Rahul has trained 5000+ students. He specializes in Full Stack Development and Cloud Technologies. His teaching style primarily focuses on &quot;Learning by Doing&quot;.
                       </p>
                       <div className="flex gap-4">
                         <div className="flex flex-col">
@@ -603,7 +585,7 @@ const CourseDetail = () => {
                           </div>
                           <span className="text-xs text-slate-400">2 days ago</span>
                         </div>
-                        <p className="text-slate-600 text-sm italic">"Great course content and support. The projects helped me understand the concepts very clearly."</p>
+                        <p className="text-slate-600 text-sm italic">&quot;Great course content and support. The projects helped me understand the concepts very clearly.&quot;</p>
                       </div>
                     ))}
                   </div>

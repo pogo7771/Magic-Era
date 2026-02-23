@@ -1,6 +1,6 @@
 import React from 'react';
 import { Send } from 'lucide-react';
-import { useToast } from '../context/ToastContext';
+import { useToast } from '../context/useToast';
 
 const Newsletter = () => {
     const { addToast } = useToast();
@@ -18,7 +18,7 @@ const Newsletter = () => {
                                 <Send size={32} />
                             </div>
                             <div>
-                                <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2">Let's Join To <br /> Our Newsletter</h2>
+                                <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2">Let&apos;s Join To <br /> Our Newsletter</h2>
                                 <p className="text-slate-500">Subscribe/Get Notified to get new updates.</p>
                             </div>
                         </div>

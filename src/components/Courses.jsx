@@ -2,21 +2,22 @@ import React, { useState, useMemo } from 'react';
 import { Clock, Star, ArrowRight, Search, Filter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+const courseData = [
+  { id: 1, title: "Advance Full Stack Web Development", duration: "8 to 10 Months", image: "https://www.logicera.co.in/assets/img/courses/ad_full_stack.png", color: "bg-green-600", link: "/ad-full-stack", category: "Development" },
+  { id: 2, title: "Full Stack Web Development", duration: "6 to 8 Months", image: "https://www.logicera.co.in/assets/img/courses/full_stack.png", color: "bg-accent", link: "/full-stack", category: "Development" },
+  { id: 3, title: "Graphic Designing", duration: "4 to 6 Months", image: "https://www.logicera.co.in/assets/img/courses/graphics.jpeg", color: "bg-blue-600", link: "/graphics", category: "Design" },
+  { id: 4, title: "Web Design", duration: "4 to 5 Months", image: "https://www.logicera.co.in/assets/img/courses/Web_design_.jpeg", color: "bg-lime-600", link: "/web-design", category: "Design" },
+  { id: 5, title: "Digital Marketing", duration: "4 Months", image: "https://www.logicera.co.in/assets/img/courses/digital-marketing.jpeg", color: "bg-purple-600", link: "/digital-marketing", category: "Marketing" },
+  { id: 6, title: "Python", duration: "2 Months", image: "https://www.logicera.co.in/assets/img/courses/python.png", color: "bg-yellow-600", link: "/python", category: "Programming" },
+  { id: 7, title: "Tally Prime with GST", duration: "2-3 Months", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", color: "bg-teal-600", link: "/tally", category: "Accounting" },
+  { id: 8, title: "Course on Computer Concepts (CCC)", duration: "3 Months", image: "https://images.unsplash.com/photo-1517430816045-df4b7de8db98?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", color: "bg-indigo-600", link: "/ccc", category: "Certification" },
+  { id: 9, title: "Internet of Things (IoT)", duration: "3-4 Months", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", color: "bg-cyan-600", link: "/iot", category: "Technology" },
+];
+
 const Courses = () => {
   const [filter, setFilter] = useState('All Courses');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const courseData = [
-    { id: 1, title: "Advance Full Stack Web Development", duration: "8 to 10 Months", image: "https://www.logicera.co.in/assets/img/courses/ad_full_stack.png", color: "bg-green-600", link: "/ad-full-stack", category: "Development" },
-    { id: 2, title: "Full Stack Web Development", duration: "6 to 8 Months", image: "https://www.logicera.co.in/assets/img/courses/full_stack.png", color: "bg-accent", link: "/full-stack", category: "Development" },
-    { id: 3, title: "Graphic Designing", duration: "4 to 6 Months", image: "https://www.logicera.co.in/assets/img/courses/graphics.jpeg", color: "bg-blue-600", link: "/graphics", category: "Design" },
-    { id: 4, title: "Web Design", duration: "4 to 5 Months", image: "https://www.logicera.co.in/assets/img/courses/Web_design_.jpeg", color: "bg-lime-600", link: "/web-design", category: "Design" },
-    { id: 5, title: "Digital Marketing", duration: "4 Months", image: "https://www.logicera.co.in/assets/img/courses/digital-marketing.jpeg", color: "bg-purple-600", link: "/digital-marketing", category: "Marketing" },
-    { id: 6, title: "Python", duration: "2 Months", image: "https://www.logicera.co.in/assets/img/courses/python.png", color: "bg-yellow-600", link: "/python", category: "Programming" },
-    { id: 7, title: "Tally Prime with GST", duration: "2-3 Months", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", color: "bg-teal-600", link: "/tally", category: "Accounting" },
-    { id: 8, title: "Course on Computer Concepts (CCC)", duration: "3 Months", image: "https://images.unsplash.com/photo-1517430816045-df4b7de8db98?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", color: "bg-indigo-600", link: "/ccc", category: "Certification" },
-    { id: 9, title: "Internet of Things (IoT)", duration: "3-4 Months", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", color: "bg-cyan-600", link: "/iot", category: "Technology" },
-  ];
 
   const categories = ['All Courses', ...new Set(courseData.map(c => c.category))];
 

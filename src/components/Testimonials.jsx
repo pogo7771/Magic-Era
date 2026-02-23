@@ -98,7 +98,7 @@ const TestimonialCard = ({ data, variant = "primary" }) => (
     <Quote size={32} className="text-accent mb-4 opacity-50" />
 
     <p className="text-slate-300 italic mb-6 leading-relaxed text-sm">
-      "{data.text}"
+      &quot;{data.text}&quot;
     </p>
 
     <div className="flex items-center gap-4">

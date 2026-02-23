@@ -1,87 +1,87 @@
 import React, { useState, useMemo } from 'react';
 import { ArrowRight, Search, X, ExternalLink, Github, Tag, Calendar, User, Eye, Heart } from 'lucide-react';
 
+const projects = [
+    {
+        id: 1,
+        title: "ShopEasy E-Commerce",
+        category: "web",
+        image: "https://images.unsplash.com/photo-1661956602116-aa6865609028?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        description: "A comprehensive e-commerce platform featuring a custom shopping cart, user authentication, payment gateway integration (Stripe), and an admin dashboard for inventory management.",
+        technologies: ["React", "Node.js", "MongoDB", "Redux", "Stripe API"],
+        client: "Retail Corp",
+        date: "Jan 2024",
+        link: "#",
+        github: "#"
+    },
+    {
+        id: 2,
+        title: "FinTrack Dashboard",
+        category: "app",
+        image: "https://images.unsplash.com/photo-1642790106117-e829e14a795f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        description: "A real-time financial tracking application allowing users to monitor expenses, set budgets, and visualize spending habits through interactive charts and graphs.",
+        technologies: ["Vue.js", "D3.js", "Firebase", "Tailwind CSS"],
+        client: "FinTech Solutions",
+        date: "Nov 2023",
+        link: "#",
+        github: "#"
+    },
+    {
+        id: 3,
+        title: "Wanderlust Travel Blog",
+        category: "web",
+        image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        description: "A visually immersive travel blog with a content management system (CMS) for easy post updates, image galleries, and an interactive map integration.",
+        technologies: ["Next.js", "Sanity CMS", "Mapbox", "Framer Motion"],
+        client: "Travel Influencer",
+        date: "Feb 2024",
+        link: "#",
+        github: "#"
+    },
+    {
+        id: 4,
+        title: "EcoBrand Identity",
+        category: "design",
+        image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        description: "Complete brand identity package including logo design, color palette, typography guidelines, and social media assets for an eco-friendly startup.",
+        technologies: ["Adobe Illustrator", "Photoshop", "Figma"],
+        client: "Green Earth Co.",
+        date: "Dec 2023",
+        link: "#",
+        github: null // Design projects might not have code
+    },
+    {
+        id: 5,
+        title: "TaskMaster App UI",
+        category: "design",
+        image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        description: "Modern and intuitive user interface design for a productivity and task management mobile application, focusing on user experience and accessibility.",
+        technologies: ["Figma", "Protopie", "Adobe XD"],
+        client: "StartUp Inc.",
+        date: "Oct 2023",
+        link: "#",
+        github: null
+    },
+    {
+        id: 6,
+        title: "DataViz Analytics",
+        category: "app",
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        description: "An enterprise-grade analytics tool capable of processing large datasets and generating downloadable reports with customizable parameters.",
+        technologies: ["Python", "Django", "React", "Pandas"],
+        client: "Data Corp",
+        date: "Mar 2024",
+        link: "#",
+        github: "#"
+    },
+];
+
 const Portfolio = () => {
     const [filter, setFilter] = useState('all');
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedProject, setSelectedProject] = useState(null);
     const [likes, setLikes] = useState({});
 
-    // Expanded Project Data
-    const projects = [
-        {
-            id: 1,
-            title: "ShopEasy E-Commerce",
-            category: "web",
-            image: "https://images.unsplash.com/photo-1661956602116-aa6865609028?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            description: "A comprehensive e-commerce platform featuring a custom shopping cart, user authentication, payment gateway integration (Stripe), and an admin dashboard for inventory management.",
-            technologies: ["React", "Node.js", "MongoDB", "Redux", "Stripe API"],
-            client: "Retail Corp",
-            date: "Jan 2024",
-            link: "#",
-            github: "#"
-        },
-        {
-            id: 2,
-            title: "FinTrack Dashboard",
-            category: "app",
-            image: "https://images.unsplash.com/photo-1642790106117-e829e14a795f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            description: "A real-time financial tracking application allowing users to monitor expenses, set budgets, and visualize spending habits through interactive charts and graphs.",
-            technologies: ["Vue.js", "D3.js", "Firebase", "Tailwind CSS"],
-            client: "FinTech Solutions",
-            date: "Nov 2023",
-            link: "#",
-            github: "#"
-        },
-        {
-            id: 3,
-            title: "Wanderlust Travel Blog",
-            category: "web",
-            image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            description: "A visually immersive travel blog with a content management system (CMS) for easy post updates, image galleries, and an interactive map integration.",
-            technologies: ["Next.js", "Sanity CMS", "Mapbox", "Framer Motion"],
-            client: "Travel Influencer",
-            date: "Feb 2024",
-            link: "#",
-            github: "#"
-        },
-        {
-            id: 4,
-            title: "EcoBrand Identity",
-            category: "design",
-            image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            description: "Complete brand identity package including logo design, color palette, typography guidelines, and social media assets for an eco-friendly startup.",
-            technologies: ["Adobe Illustrator", "Photoshop", "Figma"],
-            client: "Green Earth Co.",
-            date: "Dec 2023",
-            link: "#",
-            github: null // Design projects might not have code
-        },
-        {
-            id: 5,
-            title: "TaskMaster App UI",
-            category: "design",
-            image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            description: "Modern and intuitive user interface design for a productivity and task management mobile application, focusing on user experience and accessibility.",
-            technologies: ["Figma", "Protopie", "Adobe XD"],
-            client: "StartUp Inc.",
-            date: "Oct 2023",
-            link: "#",
-            github: null
-        },
-        {
-            id: 6,
-            title: "DataViz Analytics",
-            category: "app",
-            image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            description: "An enterprise-grade analytics tool capable of processing large datasets and generating downloadable reports with customizable parameters.",
-            technologies: ["Python", "Django", "React", "Pandas"],
-            client: "Data Corp",
-            date: "Mar 2024",
-            link: "#",
-            github: "#"
-        },
-    ];
 
     // Filter Logic
     const filteredProjects = useMemo(() => {

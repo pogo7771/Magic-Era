@@ -1,15 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { X, CheckCircle, AlertCircle, Info } from 'lucide-react';
+import { ToastContext } from './ToastContext';
 
-const ToastContext = createContext();
-
-export const useToast = () => {
-    const context = useContext(ToastContext);
-    if (!context) {
-        throw new Error('useToast must be used within a ToastProvider');
-    }
-    return context;
-};
 
 export const ToastProvider = ({ children }) => {
     const [toasts, setToasts] = useState([]);

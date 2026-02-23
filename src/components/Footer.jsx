@@ -99,7 +99,7 @@ const Footer = () => {
             <ul className="space-y-6">
               <li className="flex gap-4 items-start group">
                 <MapPin size={24} className="text-accent flex-shrink-0 group-hover:animate-bounce" />
-                <a href="https://maps.app.goo.gl/y3unc5YnaH6i9kFp7" target="_blank" className="text-sm leading-snug hover:text-white transition-colors">
+                <a href="https://maps.app.goo.gl/y3unc5YnaH6i9kFp7" target="_blank" rel="noreferrer" className="text-sm leading-snug hover:text-white transition-colors">
                   1A MINI LIG MAHABALIPURAM , KALYANPUR KANPUR - 208017
                 </a>
               </li>
@@ -121,7 +121,7 @@ const Footer = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
             <p>© 2024 - 2025 <span className="text-slate-300 font-semibold">Magic Era</span>. All Rights Reserved.</p>
-            <p className="text-center md:text-right">1A Mini Lig Mahabalipuram | 1071 'B' Block Panki Bhatia Tiraha</p>
+            <p className="text-center md:text-right">1A Mini Lig Mahabalipuram | 1071 &apos;B&apos; Block Panki Bhatia Tiraha</p>
           </div>
         </div>
       </div>

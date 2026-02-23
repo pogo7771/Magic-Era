@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, Facebook, Twitter, Instagram, Linkedin, MessageCircle, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useToast } from '../context/ToastContext';
+import { useToast } from '../context/useToast';
 
 const Contact = () => {
     const { addToast } = useToast();
@@ -66,7 +66,7 @@ const Contact = () => {
                             <span className="text-accent font-bold text-sm uppercase tracking-widest mb-2 block">Get In Touch</span>
                             <h2 className="text-4xl font-extrabold text-primary mb-6">Keep In Touch With Us</h2>
                             <p className="text-slate-600 leading-relaxed">
-                                We're always available to help you. Transform your skills with Magic Era. Contact us during working hours for immediate assistance.
+                                We&apos;re always available to help you. Transform your skills with Magic Era. Contact us during working hours for immediate assistance.
                             </p>
                         </div>
 
