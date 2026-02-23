@@ -4,8 +4,9 @@ import { useToast } from '../context/useToast';
 import {
   CheckCircle, Clock, Calendar, Award, BookOpen,
   ArrowRight, Star, ChevronDown, MonitorPlay,
-  Users, Briefcase, Download, Phone
+  Users, Briefcase, Download, Phone, ShieldCheck, Zap
 } from 'lucide-react';
+import PageBanner from '../components/PageBanner';
 
 const CourseDetail = () => {
   const { pathname } = useLocation();
@@ -323,17 +324,14 @@ const CourseDetail = () => {
 
   const course = coursesDB[pathname] || { ...defaultCourse, title: pathname.replace('/', '').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) };
 
-  const [activeTab, setActiveTab] = useState('Overview');
+  const [activeTab, setActiveTab] = useState('overview');
   const [openModule, setOpenModule] = useState(0);
   const [showEnrollModal, setShowEnrollModal] = useState(false);
   const { addToast } = useToast();
 
-  // Scroll to top on route change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-
-  // Sticky nav handler could go here (simplified with CSS for now)
 
   const handleEnrollClick = () => {
     setShowEnrollModal(true);
@@ -341,364 +339,204 @@ const CourseDetail = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen">
+      <PageBanner
+        title={course.title}
+        subtitle={course.subtitle}
+        bgImage={course.image}
+        breadcrumbs={[
+          { label: "Courses", to: "/#courses" },
+          { label: course.category }
+        ]}
+      />
 
-      {/* --- HERO SECTION --- */}
-      <div className="relative bg-primary pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        {/* Abstract Background */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[100px] -mr-32 -mt-32 animate-pulse-slow"></div>
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-warning/5 rounded-full blur-[80px] -ml-20 -mb-20"></div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 -mt-20 pb-24 relative z-20">
+        <div className="grid lg:grid-cols-12 gap-12 items-start">
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="flex flex-col lg:flex-row gap-12 items-center">
-
-            {/* Text Content */}
-            <div className="lg:w-3/5 space-y-6 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-warning text-xs font-bold uppercase tracking-widest border border-white/5">
-                <Award size={14} />
-                {course.category}
-              </div>
-
-              <h1 className="text-4xl lg:text-6xl font-extrabold text-white leading-tight">
-                {course.title}
-              </h1>
-
-              <p className="text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 font-light">
-                {course.subtitle}
-              </p>
-
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-sm font-medium text-slate-300 pt-2">
-                <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-lg border border-white/5">
-                  <Star className="text-warning fill-warning" size={16} />
-                  <span className="text-white">{course.rating} Rating</span>
+          {/* Main Content Area */}
+          <div className="lg:col-span-8">
+            <div className="bg-white rounded-[2.5rem] shadow-xl overflow-hidden border border-slate-100 mb-10">
+              {/* Stats Bar */}
+              <div className="flex overflow-x-auto no-scrollbar gap-6 sm:gap-8 p-6 md:p-10 bg-primary/5 border-b border-slate-100 items-start">
+                <div className="flex items-center gap-3 shrink-0">
+                  <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-warning">
+                    <Star size={20} fill="currentColor" />
+                  </div>
+                  <div>
+                    <div className="text-primary font-black text-sm sm:text-base">{course.rating}</div>
+                    <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Rating</div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-lg border border-white/5">
-                  <Users className="text-accent" size={16} />
-                  <span className="text-white">{course.students}+ Learners</span>
+                <div className="flex items-center gap-3 shrink-0">
+                  <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-blue-500">
+                    <Users size={20} />
+                  </div>
+                  <div>
+                    <div className="text-primary font-black text-sm sm:text-base">{course.students}+</div>
+                    <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Students</div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-lg border border-white/5">
-                  <Clock className="text-blue-400" size={16} />
-                  <span className="text-white">{course.duration}</span>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start">
-                <button onClick={handleEnrollClick} className="btn btn-primary bg-accent hover:bg-rose-600 text-white shadow-lg shadow-accent/30 px-8 py-4 text-lg">
-                  Enquiry Now
-                </button>
-                <button className="btn bg-white/10 text-white hover:bg-white/20 border-white/10 backdrop-blur-md px-8 py-4 text-lg flex items-center gap-2 justify-center">
-                  <Download size={20} />
-                  Download Brochure
-                </button>
-              </div>
-            </div>
-
-            {/* Hero Image (Floating Card) */}
-            <div className="lg:w-2/5 relative perspective-1000 hidden lg:block">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10 transform rotate-3 hover:rotate-0 transition-all duration-500 group">
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent z-10"></div>
-                <img
-                  src={course.image}
-                  alt={course.title}
-                  className="w-full h-auto object-cover transform group-hover:scale-110 transition-transform duration-700"
-                />
-                <div className="absolute bottom-6 left-6 z-20">
-                  <div className="flex items-center gap-4 bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg">
-                    <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center text-white">
-                      <MonitorPlay size={24} />
-                    </div>
-                    <div>
-                      <p className="text-xs text-slate-500 font-bold uppercase">Format</p>
-                      <p className="text-slate-800 font-bold">Online / Offline</p>
-                    </div>
+                <div className="flex items-center gap-3 shrink-0">
+                  <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent">
+                    <Zap size={20} />
+                  </div>
+                  <div>
+                    <div className="text-primary font-black text-sm sm:text-base">{course.level}</div>
+                    <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Level</div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {/* --- MAIN CONTENT GRID --- */}
-      <div className="container mx-auto px-4 py-16 -mt-10 relative z-20">
-        <div className="grid lg:grid-cols-3 gap-8">
+              {/* Tabs */}
+              <div className="flex overflow-x-auto no-scrollbar border-b border-slate-100 px-6 sm:px-8">
+                {['overview', 'curriculum', 'instructor'].map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`px-6 sm:px-8 py-5 sm:py-6 font-black capitalize transition-all border-b-4 whitespace-nowrap text-sm sm:text-base ${activeTab.toLowerCase() === tab.toLowerCase()
+                      ? 'border-accent text-primary'
+                      : 'border-transparent text-slate-400 hover:text-slate-600'
+                      }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
 
-          {/* LEFT COLUMN (Content) */}
-          <div className="lg:col-span-2 space-y-8">
+              <div className="p-8 md:p-12">
+                {activeTab.toLowerCase() === 'overview' && (
+                  <div className="space-y-8 animate-fade-in">
+                    <h3 className="text-2xl font-black text-primary">About this course</h3>
+                    <p className="text-slate-600 text-lg leading-relaxed">{course.overview}</p>
 
-            {/* Course Navigation (Sticky) */}
-            <div className="bg-white p-2 rounded-xl shadow-sm border border-slate-100 flex overflow-x-auto no-scrollbar gap-2 sticky top-24 z-30">
-              {['Overview', 'Curriculum', 'Instructor', 'Reviews', 'FAQ'].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => setActiveTab(item)}
-                  className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all whitespace-nowrap ${activeTab === item ? 'bg-primary text-white shadow-md' : 'text-slate-500 hover:bg-slate-50 hover:text-primary'}`}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-
-            {/* Content Render Switch */}
-            <div className="space-y-8 animate-fade-in-up">
-
-              {/* OVERVIEW TAB */}
-              {(activeTab === 'Overview') && (
-                <>
-                  <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                    <h3 className="text-2xl font-bold text-primary mb-6">Course Overview</h3>
-                    <p className="text-slate-600 leading-relaxed text-lg mb-6">
-                      {course.overview}
-                    </p>
-
-                    <h4 className="font-bold text-lg text-primary mb-4">What You Will Learn?</h4>
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      {(course.curriculum[0]?.topics?.concat(course.curriculum[1]?.topics || []) || []).slice(0, 8).map((topic, i) => (
-                        <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
-                          <CheckCircle className="text-accent shrink-0 mt-0.5" size={18} />
-                          <span className="text-slate-700 font-medium text-sm">{topic}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Projects / Highlights (Visible in Overview) */}
-                  <div className="bg-gradient-to-r from-primary to-slate-800 rounded-3xl p-8 text-white relative overflow-hidden">
-                    <div className="relative z-10 grid sm:grid-cols-2 gap-8 items-center">
-                      <div>
-                        <h3 className="text-2xl font-bold mb-2">Build Your Portfolio</h3>
-                        <p className="text-slate-300 mb-6 text-sm">You won&apos;t just learn theory. You&apos;ll build real-world projects that get you hired.</p>
-                        <button className="px-6 py-2.5 bg-white text-primary font-bold rounded-lg hover:bg-slate-100 transition-colors">
-                          View Sample Projects
-                        </button>
+                    <div className="grid md:grid-cols-2 gap-6 pt-6">
+                      <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                        <h4 className="font-black text-primary mb-4 flex items-center gap-2">
+                          <CheckCircle className="text-green-500" size={20} />
+                          What you&apos;ll learn
+                        </h4>
+                        <ul className="space-y-3">
+                          {course.curriculum[0].topics.map((t, i) => (
+                            <li key={i} className="text-slate-600 text-sm flex items-center gap-2 font-medium">
+                              <div className="w-1.5 h-1.5 rounded-full bg-accent" /> {t}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl border border-white/10 text-center">
-                          <h4 className="text-3xl font-bold text-warning mb-1">15+</h4>
-                          <p className="text-xs text-slate-300 uppercase">Live Projects</p>
-                        </div>
-                        <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl border border-white/10 text-center">
-                          <h4 className="text-3xl font-bold text-accent mb-1">100%</h4>
-                          <p className="text-xs text-slate-300 uppercase">Placement Support</p>
-                        </div>
+                      <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                        <h4 className="font-black text-primary mb-4 flex items-center gap-2">
+                          <Award className="text-accent" size={20} />
+                          Why this course?
+                        </h4>
+                        <ul className="space-y-3 font-semibold text-slate-600 text-sm">
+                          <li>• Industry-leading curriculum</li>
+                          <li>• Professional certification</li>
+                          <li>• Resume & Interview prep</li>
+                        </ul>
                       </div>
                     </div>
                   </div>
-                </>
-              )}
+                )}
 
-              {/* CURRICULUM TAB */}
-              {(activeTab === 'Curriculum' || activeTab === 'Overview') && (
-                <div id="curriculum" className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                  <h3 className="text-2xl font-bold text-primary mb-6 flex justify-between items-center">
-                    Course Curriculum
-                    {activeTab === 'Overview' && <button onClick={() => setActiveTab('Curriculum')} className="text-sm text-accent font-semibold hover:underline">View All</button>}
-                  </h3>
-                  <div className="space-y-4">
-                    {course.curriculum.map((module, i) => (
-                      <div key={i} className={`border rounded-xl overflow-hidden transition-all duration-300 ${openModule === i ? 'border-accent/30 shadow-md' : 'border-slate-200'}`}>
+                {activeTab.toLowerCase() === 'curriculum' && (
+                  <div className="space-y-4 animate-fade-in">
+                    <h3 className="text-2xl font-black text-primary mb-6">Course Modules</h3>
+                    {course.curriculum.map((module, index) => (
+                      <div key={index} className="border border-slate-100 rounded-2xl overflow-hidden shadow-sm">
                         <button
-                          onClick={() => setOpenModule(openModule === i ? -1 : i)}
-                          className={`w-full bg-slate-50 p-4 flex justify-between items-center cursor-pointer hover:bg-slate-100 transition-colors text-left focus:outline-none`}
+                          onClick={() => setOpenModule(openModule === index ? null : index)}
+                          className="w-full flex items-center justify-between p-6 bg-slate-50/50 hover:bg-slate-50 transition-colors"
                         >
                           <div className="flex items-center gap-4">
-                            <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${openModule === i ? 'bg-accent text-white' : 'bg-white border border-slate-200 text-slate-500'}`}>
-                              {i + 1}
-                            </span>
-                            <h5 className={`font-bold transition-colors ${openModule === i ? 'text-primary' : 'text-slate-800'}`}>{module.title}</h5>
-                          </div>
-                          <ChevronDown size={20} className={`text-slate-400 transition-transform duration-300 ${openModule === i ? 'rotate-180 text-accent' : ''}`} />
-                        </button>
-
-                        <div className={`transition-all duration-300 ease-in-out overflow-hidden ${openModule === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                          <div className="p-4 bg-white border-t border-slate-100">
-                            <ul className="space-y-2">
-                              {module.topics.map((topic, j) => (
-                                <li key={j} className="flex items-center gap-3 text-sm text-slate-600 ml-12">
-                                  <div className="w-1.5 h-1.5 rounded-full bg-accent/50"></div>
-                                  {topic}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* INSTRUCTOR TAB */}
-              {activeTab === 'Instructor' && (
-                <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                  <h3 className="text-2xl font-bold text-primary mb-6">Expert Instructor</h3>
-                  <div className="flex flex-col sm:flex-row gap-6 items-start">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Instructor" className="w-24 h-24 rounded-full object-cover border-4 border-slate-50 shadow-md" />
-                    <div>
-                      <h4 className="text-xl font-bold text-gray-900">Rahul Sharma</h4>
-                      <p className="text-accent font-medium text-sm mb-3">Senior Software Engineer & Trainer</p>
-                      <p className="text-slate-600 text-sm leading-relaxed mb-4">
-                        With over 10 years of industry experience, Rahul has trained 5000+ students. He specializes in Full Stack Development and Cloud Technologies. His teaching style primarily focuses on &quot;Learning by Doing&quot;.
-                      </p>
-                      <div className="flex gap-4">
-                        <div className="flex flex-col">
-                          <span className="font-bold text-primary">4.9/5</span>
-                          <span className="text-xs text-slate-500">Rating</span>
-                        </div>
-                        <div className="flex flex-col">
-                          <span className="font-bold text-primary">10+</span>
-                          <span className="text-xs text-slate-500">Courses</span>
-                        </div>
-                        <div className="flex flex-col">
-                          <span className="font-bold text-primary">5000+</span>
-                          <span className="text-xs text-slate-500">Students</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* REVIEWS TAB */}
-              {activeTab === 'Reviews' && (
-                <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                  <div className="flex justify-between items-center mb-6">
-                    <h3 className="text-2xl font-bold text-primary">Student Reviews</h3>
-                    <div className="flex items-center gap-2">
-                      <Star className="text-warning fill-warning" size={24} />
-                      <span className="text-2xl font-bold text-slate-900">4.8</span>
-                      <span className="text-slate-500 text-sm">(120 Reviews)</span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-6">
-                    {[1, 2, 3].map((rev) => (
-                      <div key={rev} className="border-b border-slate-50 pb-6 last:border-0 last:pb-0">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-500">S</div>
-                            <div>
-                              <h5 className="font-bold text-sm">Student Name</h5>
-                              <div className="flex text-warning text-xs">
-                                {[...Array(5)].map((_, i) => <Star key={i} size={10} fill="currentColor" />)}
-                              </div>
+                            <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center text-primary font-black text-sm">
+                              0{index + 1}
                             </div>
+                            <span className="font-black text-primary text-lg">{module.title}</span>
                           </div>
-                          <span className="text-xs text-slate-400">2 days ago</span>
-                        </div>
-                        <p className="text-slate-600 text-sm italic">&quot;Great course content and support. The projects helped me understand the concepts very clearly.&quot;</p>
+                          <ChevronDown className={`text-slate-400 transition-transform ${openModule === index ? 'rotate-180' : ''}`} />
+                        </button>
+                        {openModule === index && (
+                          <div className="p-6 bg-white border-t border-slate-50 space-y-4">
+                            {module.topics.map((topic, i) => (
+                              <div key={i} className="flex items-center gap-4 text-slate-600">
+                                <MonitorPlay size={18} className="text-accent" />
+                                <span className="font-medium">{topic}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
-                </div>
-              )}
+                )}
 
-              {/* FAQ TAB */}
-              {activeTab === 'FAQ' && (
-                <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                  <h3 className="text-2xl font-bold text-primary mb-6">Frequently Asked Questions</h3>
-                  <div className="space-y-4">
-                    <details className="group border border-slate-200 rounded-xl bg-slate-50 open:bg-white transition-colors">
-                      <summary className="font-bold p-4 cursor-pointer list-none flex justify-between items-center text-slate-800">
-                        Do you provide placement assistance?
-                        <ChevronDown className="group-open:rotate-180 transition-transform text-slate-400" size={20} />
-                      </summary>
-                      <div className="p-4 pt-0 text-slate-600 text-sm leading-relaxed border-t border-transparent group-open:border-slate-100">
-                        Yes, we provide 100% placement assistance. We help you build your resume, prepare for mock interviews, and schedule interviews with our hiring partners.
-                      </div>
-                    </details>
-                    <details className="group border border-slate-200 rounded-xl bg-slate-50 open:bg-white transition-colors">
-                      <summary className="font-bold p-4 cursor-pointer list-none flex justify-between items-center text-slate-800">
-                        Can I attend, if I am from a non-tech background?
-                        <ChevronDown className="group-open:rotate-180 transition-transform text-slate-400" size={20} />
-                      </summary>
-                      <div className="p-4 pt-0 text-slate-600 text-sm leading-relaxed border-t border-transparent group-open:border-slate-100">
-                        Absolutely! Our courses are designed from basics to advanced levels. We start from scratch, so no prior coding experience is required.
-                      </div>
-                    </details>
-                    <details className="group border border-slate-200 rounded-xl bg-slate-50 open:bg-white transition-colors">
-                      <summary className="font-bold p-4 cursor-pointer list-none flex justify-between items-center text-slate-800">
-                        Do I get a certificate after completion?
-                        <ChevronDown className="group-open:rotate-180 transition-transform text-slate-400" size={20} />
-                      </summary>
-                      <div className="p-4 pt-0 text-slate-600 text-sm leading-relaxed border-t border-transparent group-open:border-slate-100">
-                        Yes, upon successful completion of the course and projects, you will receive an industry-recognized certification from Magic Era.
-                      </div>
-                    </details>
+                {activeTab.toLowerCase() === 'instructor' && (
+                  <div className="animate-fade-in text-center p-10 bg-slate-50 rounded-[2rem]">
+                    <img
+                      src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80"
+                      alt="Instructor"
+                      className="w-32 h-32 rounded-[2rem] mx-auto mb-6 shadow-xl object-cover"
+                    />
+                    <h4 className="text-2xl font-black text-primary mb-2">Senior Industry Expert</h4>
+                    <p className="text-accent font-bold mb-4 uppercase tracking-widest text-sm">15+ Years of Experience</p>
+                    <p className="text-slate-500 max-w-lg mx-auto leading-relaxed">
+                      Our courses are led by industry veterans who have worked in top tech giants. They bring practical knowledge and real-world project experience to the classroom.
+                    </p>
                   </div>
-                </div>
-              )}
-
+                )}
+              </div>
             </div>
           </div>
 
-          {/* RIGHT COLUMN (Sidebar) */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-28 space-y-6">
-
-              {/* Course Info Card */}
-              <div className="bg-white p-6 rounded-2xl shadow-xl border border-slate-100">
-                <div className="mb-6">
+          {/* Sidebar */}
+          <div className="lg:col-span-4 lg:sticky lg:top-32">
+            <div className="bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden">
+              <div className="p-10 space-y-8">
+                <div>
                   <div className="flex items-end gap-2 mb-2">
-                    <span className="text-3xl font-bold text-primary">Enroll Today</span>
+                    <span className="text-slate-400 font-black line-through text-2xl">₹15,000</span>
+                    <span className="text-accent font-black text-4xl">₹7,499</span>
                   </div>
-                  <p className="text-slate-500 text-sm">Limited seats available for the upcoming batch.</p>
+                  <p className="text-green-500 font-black flex items-center gap-2">
+                    <Clock size={16} /> Early Bird Offer - 50% OFF!
+                  </p>
                 </div>
 
-                <ul className="space-y-4 mb-8">
-                  <li className="flex items-center justify-between text-sm py-2 border-b border-slate-50">
-                    <span className="flex items-center gap-3 text-slate-600">
-                      <Clock size={18} className="text-accent" /> Duration
-                    </span>
-                    <span className="font-bold text-slate-800">{course.duration}</span>
-                  </li>
-                  <li className="flex items-center justify-between text-sm py-2 border-b border-slate-50">
-                    <span className="flex items-center gap-3 text-slate-600">
-                      <BookOpen size={18} className="text-accent" /> Lectures
-                    </span>
-                    <span className="font-bold text-slate-800">{course.lectures}</span>
-                  </li>
-                  <li className="flex items-center justify-between text-sm py-2 border-b border-slate-50">
-                    <span className="flex items-center gap-3 text-slate-600">
-                      <Briefcase size={18} className="text-accent" /> Projects
-                    </span>
-                    <span className="font-bold text-slate-800">{course.projects}</span>
-                  </li>
-                  <li className="flex items-center justify-between text-sm py-2 border-b border-slate-50">
-                    <span className="flex items-center gap-3 text-slate-600">
-                      <Award size={18} className="text-accent" /> Certificate
-                    </span>
-                    <span className="font-bold text-slate-800">Verified</span>
-                  </li>
-                </ul>
+                <div className="space-y-4 font-bold">
+                  <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl">
+                    <span className="flex items-center gap-3 text-slate-500"><BookOpen size={20} /> Lectures</span>
+                    <span className="text-primary">{course.lectures}</span>
+                  </div>
+                  <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl">
+                    <span className="flex items-center gap-3 text-slate-500"><Briefcase size={20} /> Projects</span>
+                    <span className="text-primary">{course.projects}</span>
+                  </div>
+                  <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl">
+                    <span className="flex items-center gap-3 text-slate-500"><Clock size={20} /> Duration</span>
+                    <span className="text-primary">{course.duration}</span>
+                  </div>
+                  <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl">
+                    <span className="flex items-center gap-3 text-slate-500"><ShieldCheck size={20} /> Accessibility</span>
+                    <span className="text-primary">Lifetime</span>
+                  </div>
+                </div>
 
-                <div className="space-y-3">
-                  <button onClick={handleEnrollClick} className="w-full btn btn-primary mb-3 shadow-xl">
-                    Apply Now
-                  </button>
-                  <button className="w-full btn btn-secondary">
-                    Talk to Counselor
-                  </button>
+                <button
+                  onClick={handleEnrollClick}
+                  className="block w-full text-center bg-primary text-white py-5 rounded-2xl font-black text-xl shadow-xl shadow-primary/30 hover:bg-accent hover:shadow-accent/40 transform hover:-translate-y-1 transition-all duration-300"
+                >
+                  Enroll Now
+                </button>
+
+                <div className="pt-4 text-center">
+                  <p className="text-slate-400 text-sm font-medium mb-4">Guaranteed Career Support</p>
+                  <div className="flex justify-center gap-4 text-slate-300">
+                    <Download size={20} className="hover:text-primary cursor-pointer transition-colors" />
+                    <Phone size={20} className="hover:text-primary cursor-pointer transition-colors" />
+                  </div>
                 </div>
               </div>
-
-              {/* Help Box */}
-              <div className="bg-slate-900 rounded-2xl p-6 text-center relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full blur-2xl -mr-10 -mt-10"></div>
-                <div className="relative z-10">
-                  <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 text-white">
-                    <Phone size={24} />
-                  </div>
-                  <h4 className="text-white font-bold text-lg mb-1">Need Help?</h4>
-                  <p className="text-slate-400 text-sm mb-4">Call us to get more details about the course.</p>
-                  <a href="tel:+918299727078" className="text-accent font-bold text-xl hover:text-white transition-colors">
-                    +91 8299727078
-                  </a>
-                </div>
-              </div>
-
             </div>
           </div>
-
         </div>
       </div>
 

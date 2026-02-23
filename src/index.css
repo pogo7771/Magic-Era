@@ -27,32 +27,40 @@
     @apply bg-white text-slate-700 shadow-sm border border-slate-200 hover:bg-slate-50 hover:text-accent hover:border-accent/30 hover:shadow-md hover:-translate-y-0.5;
   }
 
-  .btn-outline {
-    @apply border-2 border-slate-200 text-slate-600 hover:border-accent hover:text-white hover:bg-accent hover:-translate-y-1;
-  }
-
-  .btn-ghost {
-    @apply text-slate-500 hover:text-accent hover:bg-accent/5 backdrop-blur-sm;
+  .glass-card {
+    @apply bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl;
   }
 }
 
 @layer utilities {
   .animate-scroll {
-    animation: scroll-infinite 20s linear infinite;
+    animation: scroll-infinite 30s linear infinite;
     display: flex;
     width: max-content;
-  }
-
-  .animate-scroll:hover {
-    animation-play-state: paused;
   }
 
   .animate-scroll-vertical {
     animation: scroll-vertical 20s linear infinite;
   }
 
-  .animate-scroll-vertical:hover {
-    animation-play-state: paused;
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-bounce-short {
+    animation: bounce 1s ease-in-out 2;
+  }
+
+  .animate-bounce-slow {
+    animation: bounce-slow 4s infinite ease-in-out;
   }
 }
 
@@ -78,10 +86,6 @@ html {
   @apply bg-slate-300 rounded;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-slate-400;
-}
-
 /* Animations */
 @keyframes scroll-infinite {
   0% {
@@ -101,4 +105,65 @@ html {
   100% {
     transform: translateY(-50%);
   }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce-slow {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

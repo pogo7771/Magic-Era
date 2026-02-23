@@ -34,21 +34,21 @@ const Courses = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header Section with Search and Filter */}
-        <div className="flex flex-col lg:flex-row justify-between items-end mb-12 gap-8">
-          <div className="max-w-xl w-full">
-            <span className="text-accent font-bold text-sm uppercase tracking-widest mb-2 block">Popular Courses</span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-primary mb-6">
+        <div className="flex flex-col lg:flex-row justify-between items-center lg:items-end mb-16 gap-10">
+          <div className="max-w-xl w-full text-center lg:text-left">
+            <span className="text-accent font-black text-xs sm:text-sm uppercase tracking-[0.3em] mb-3 block">Pick Your Path</span>
+            <h2 className="text-3xl md:text-5xl font-black text-primary mb-6">
               Our <span className="text-accent relative px-1">Featured
-                <svg className="absolute bottom-1 left-0 w-full h-2 text-warning/50 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="4" fill="none" /></svg>
+                <svg className="absolute bottom-1 left-0 w-full h-2 text-warning/40 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="6" fill="none" /></svg>
               </span> Courses
             </h2>
 
             {/* Search Bar */}
-            <div className="relative max-w-md">
+            <div className="relative max-w-md mx-auto lg:mx-0">
               <input
                 type="text"
                 placeholder="Search for a course..."
-                className="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:border-accent focus:ring-2 focus:ring-accent/10 outline-none transition-all shadow-sm"
+                className="w-full pl-12 pr-4 py-4 rounded-2xl border border-slate-200 focus:border-accent focus:ring-4 focus:ring-accent/10 outline-none transition-all shadow-sm font-medium"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -57,16 +57,23 @@ const Courses = () => {
           </div>
 
           {/* Category Filters */}
-          <div className="flex gap-2 p-1 bg-white rounded-xl border border-slate-200 shadow-sm overflow-x-auto max-w-full pb-2 lg:pb-1 scrollbar-hide">
-            {categories.map((cat, i) => (
-              <button
-                key={i}
-                onClick={() => setFilter(cat)}
-                className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all whitespace-nowrap ${filter === cat ? 'bg-primary text-white shadow-md' : 'text-slate-500 hover:text-primary hover:bg-slate-50'}`}
-              >
-                {cat}
-              </button>
-            ))}
+          <div className="w-full lg:w-auto overflow-hidden relative group/filters">
+            <div className="flex gap-2 p-2 bg-white rounded-full border border-slate-100 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] overflow-x-auto no-scrollbar scroll-smooth">
+              {categories.map((cat, i) => (
+                <button
+                  key={i}
+                  onClick={() => setFilter(cat)}
+                  className={`px-6 py-2.5 rounded-full text-xs sm:text-sm font-black whitespace-nowrap transition-all duration-300 ${filter === cat
+                      ? 'bg-primary text-white shadow-lg shadow-primary/25 scale-105'
+                      : 'text-slate-500 bg-slate-50/50 hover:bg-slate-100 hover:text-primary border border-transparent hover:border-slate-200'
+                    }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+            {/* Fade effect to indicate more items */}
+            <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-white to-transparent pointer-events-none opacity-0 group-hover/filters:opacity-100 transition-opacity lg:hidden"></div>
           </div>
         </div>
 

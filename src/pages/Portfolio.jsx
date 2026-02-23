@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { ArrowRight, Search, X, ExternalLink, Github, Tag, Calendar, User, Eye, Heart } from 'lucide-react';
+import { Search, X, ExternalLink, Github, Tag, Calendar, User, Eye, Heart, Sparkles } from 'lucide-react';
+import PageBanner from '../components/PageBanner';
 
 const projects = [
     {
@@ -48,7 +49,7 @@ const projects = [
         client: "Green Earth Co.",
         date: "Dec 2023",
         link: "#",
-        github: null // Design projects might not have code
+        github: null
     },
     {
         id: 5,
@@ -82,8 +83,6 @@ const Portfolio = () => {
     const [selectedProject, setSelectedProject] = useState(null);
     const [likes, setLikes] = useState({});
 
-
-    // Filter Logic
     const filteredProjects = useMemo(() => {
         return projects.filter(project => {
             const matchesFilter = filter === 'all' || project.category === filter;
@@ -100,214 +99,191 @@ const Portfolio = () => {
 
     return (
         <div className="bg-slate-50 min-h-screen">
-            {/* Header */}
-            <div className="bg-primary pt-32 pb-20 text-center text-white relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl -mr-20 -mt-20 animate-pulse-slow"></div>
-                <div className="absolute bottom-0 left-0 w-72 h-72 bg-warning/10 rounded-full blur-3xl -ml-20 -mb-20"></div>
+            <PageBanner
+                title="Our Portfolio"
+                subtitle="A showcase of our creativity, innovation, and technical excellence."
+                bgImage="https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+                breadcrumbs={[{ label: "Portfolio" }]}
+            />
 
-                <div className="container mx-auto px-4 relative z-10">
-                    <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Our Portfolio</h1>
-                    <p className="text-lg text-slate-300 max-w-2xl mx-auto">
-                        Explore our latest work, student projects, and design case studies.
-                    </p>
-                </div>
-            </div>
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                {/* Search & Filter Header */}
+                <div className="bg-white p-6 md:p-10 rounded-[2.5rem] shadow-xl border border-slate-100 mb-16 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-32 -mt-32"></div>
+                    <div className="flex flex-col lg:flex-row justify-between items-center gap-8 relative z-10">
+                        <div className="w-full lg:w-auto relative group/filters overflow-hidden">
+                            <div className="flex gap-3 overflow-x-auto no-scrollbar py-2 px-2 bg-slate-50/50 rounded-2xl border border-slate-100/50 justify-start sm:justify-center">
+                                {['all', 'web', 'app', 'design'].map((type) => (
+                                    <button
+                                        key={type}
+                                        onClick={() => setFilter(type)}
+                                        className={`px-6 sm:px-8 py-3 rounded-xl sm:rounded-2xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-500 whitespace-nowrap ${filter === type
+                                                ? 'bg-primary text-white shadow-xl shadow-primary/30 scale-105'
+                                                : 'text-slate-400 bg-white hover:bg-white hover:text-accent border border-transparent hover:border-accent/10 hover:shadow-sm'
+                                            }`}
+                                    >
+                                        {type}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
 
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
-                {/* Controls: Filter & Search */}
-                <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
-
-                    {/* Category Tabs */}
-                    <div className="flex flex-wrap justify-center gap-2 p-1 bg-white rounded-xl border border-slate-200 shadow-sm">
-                        {['all', 'web', 'app', 'design'].map((type) => (
-                            <button
-                                key={type}
-                                onClick={() => setFilter(type)}
-                                className={`px-5 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider transition-all duration-300 ${filter === type ? 'bg-primary text-white shadow-md' : 'text-slate-500 hover:bg-slate-50 hover:text-accent'}`}
-                            >
-                                {type === 'all' ? 'All' : type}
-                            </button>
-                        ))}
-                    </div>
-
-                    {/* Search Bar */}
-                    <div className="relative w-full md:max-w-xs group">
-                        <input
-                            type="text"
-                            placeholder="Search projects..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-accent focus:ring-2 focus:ring-accent/10 outline-none transition-all shadow-sm group-hover:border-slate-300 bg-white"
-                        />
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-accent transition-colors" size={18} />
+                        <div className="relative w-full lg:max-w-md group">
+                            <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-accent transition-colors" size={20} />
+                            <input
+                                type="text"
+                                placeholder="Search by tech stack or title..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full pl-16 pr-6 py-4.5 bg-slate-50 border border-slate-100 rounded-[1.5rem] focus:bg-white focus:ring-4 focus:ring-accent/10 focus:border-accent outline-none transition-all text-slate-800 font-bold"
+                            />
+                        </div>
                     </div>
                 </div>
 
-                {/* Projects Grid */}
+                {/* Grid */}
                 {filteredProjects.length > 0 ? (
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
                         {filteredProjects.map((project) => (
                             <div
                                 key={project.id}
                                 onClick={() => setSelectedProject(project)}
-                                className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 cursor-pointer border border-slate-100 flex flex-col h-full"
+                                className="group bg-white rounded-[2.5rem] overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.08)] hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] transition-all duration-700 hover:-translate-y-4 cursor-pointer border border-slate-100 flex flex-col"
                             >
-                                {/* Image Area */}
-                                <div className="relative h-64 overflow-hidden">
+                                <div className="relative h-72 overflow-hidden">
                                     <img
                                         src={project.image}
                                         alt={project.title}
-                                        className="w-full h-full object-cover transform opacity-95 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
+                                        className="w-full h-full object-cover transform scale-100 group-hover:scale-115 transition-all duration-1000"
                                     />
-                                    <div className="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                        <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 flex flex-col items-center gap-2">
-                                            <span className="bg-white/20 backdrop-blur-md text-white px-4 py-1 rounded-full text-xs font-bold uppercase border border-white/20">
-                                                View Details
-                                            </span>
+                                    <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex flex-col justify-end p-8">
+                                        <div className="translate-y-10 group-hover:translate-y-0 transition-transform duration-700">
+                                            <div className="flex items-center gap-3 text-white mb-2">
+                                                <Sparkles size={20} className="text-warning" />
+                                                <span className="font-black text-xs uppercase tracking-widest">{project.category} Masterpiece</span>
+                                            </div>
+                                            <h4 className="text-white text-2xl font-black">{project.title}</h4>
                                         </div>
                                     </div>
                                     <button
                                         onClick={(e) => handleLike(e, project.id)}
-                                        className="absolute top-4 right-4 p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white hover:text-accent transition-all z-20"
+                                        className={`absolute top-6 right-6 w-12 h-12 rounded-2xl backdrop-blur-md flex items-center justify-center transition-all duration-300 ${likes[project.id] ? 'bg-rose-500 text-white animate-bounce-short' : 'bg-white/20 text-white hover:bg-white hover:text-rose-500'}`}
                                     >
-                                        <Heart size={18} className={likes[project.id] ? "fill-accent text-accent" : ""} />
+                                        <Heart size={20} className={likes[project.id] ? "fill-white" : ""} />
                                     </button>
                                 </div>
 
-                                {/* Content Area */}
-                                <div className="p-6 flex flex-col flex-grow">
-                                    <div className="flex justify-between items-start mb-3">
-                                        <small className="text-accent font-bold uppercase text-[10px] tracking-widest bg-accent/5 px-2 py-1 rounded-sm">
-                                            {project.category}
-                                        </small>
-                                        <span className="text-slate-400 text-xs flex items-center gap-1">
-                                            <Calendar size={12} /> {project.date}
-                                        </span>
+                                <div className="p-8 pb-10 flex flex-col flex-grow">
+                                    <div className="flex justify-between items-center mb-6">
+                                        <div className="flex items-center gap-2 text-slate-400 font-black text-[10px] uppercase tracking-[0.2em]">
+                                            <Calendar size={14} className="text-accent" /> {project.date}
+                                        </div>
+                                        <div className="text-primary/10 font-black text-4xl">0{project.id}</div>
                                     </div>
-                                    <h3 className="text-xl font-bold text-slate-800 group-hover:text-primary transition-colors mb-2">
+
+                                    <h3 className="text-2xl font-black text-primary mb-4 group-hover:text-accent transition-colors">
                                         {project.title}
                                     </h3>
-                                    <p className="text-slate-500 text-sm line-clamp-2 mb-4 flex-grow">
+
+                                    <p className="text-slate-500 font-medium leading-relaxed mb-8 line-clamp-2">
                                         {project.description}
                                     </p>
 
-                                    {/* Tech Tags */}
-                                    <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-slate-50">
+                                    <div className="mt-auto pt-6 border-t border-slate-50 flex flex-wrap gap-2">
                                         {project.technologies.slice(0, 3).map((tech, i) => (
-                                            <span key={i} className="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded-md">
+                                            <span key={i} className="text-[11px] font-black text-slate-500 bg-slate-50 px-4 py-1.5 rounded-lg border border-slate-100">
                                                 {tech}
                                             </span>
                                         ))}
-                                        {project.technologies.length > 3 && (
-                                            <span className="text-xs text-slate-400 px-1 py-1">+ {project.technologies.length - 3}</span>
-                                        )}
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <div className="text-center py-20">
-                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-slate-100 text-slate-400 mb-4">
-                            <Search size={32} />
+                    <div className="text-center py-32 bg-white rounded-[3rem] shadow-xl border border-slate-100">
+                        <div className="w-24 h-24 bg-slate-50 text-slate-300 rounded-[2rem] flex items-center justify-center mx-auto mb-8">
+                            <Search size={48} />
                         </div>
-                        <h3 className="text-xl font-bold text-slate-800 mb-2">No projects found</h3>
-                        <p className="text-slate-500">Try adjusting your search or filter.</p>
+                        <h3 className="text-3xl font-black text-primary mb-4">No Gems Found</h3>
+                        <p className="text-slate-500 font-medium mb-10 max-w-sm mx-auto">Try refining your search or browse through our all categories.</p>
                         <button
                             onClick={() => { setFilter('all'); setSearchQuery(''); }}
-                            className="mt-4 text-accent font-semibold hover:underline"
+                            className="btn btn-primary bg-accent hover:rotate-2 px-10"
                         >
-                            Clear filters
+                            Reset Showcase
                         </button>
                     </div>
                 )}
             </div>
 
-            {/* PROJECT DETAIL MODAL */}
+            {/* MODAL */}
             {selectedProject && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                    <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm" onClick={() => setSelectedProject(null)}></div>
-                    <div className="bg-white rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative shadow-2xl animate-fade-in-up flex flex-col md:flex-row overflow-hidden">
-
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 sm:p-10">
+                    <div className="absolute inset-0 bg-primary/95 backdrop-blur-xl" onClick={() => setSelectedProject(null)}></div>
+                    <div className="bg-white rounded-[3.5rem] w-full max-w-6xl max-h-[85vh] overflow-y-auto relative shadow-2xl animate-fade-in flex flex-col lg:grid lg:grid-cols-12 overflow-hidden">
                         <button
                             onClick={() => setSelectedProject(null)}
-                            className="absolute top-4 right-4 z-20 p-2 bg-white/50 backdrop-blur text-slate-800 rounded-full hover:bg-white hover:text-accent transition-all"
+                            className="absolute top-4 right-4 sm:top-8 sm:right-8 z-50 w-10 h-10 sm:w-14 sm:h-14 bg-white shadow-2xl rounded-full text-slate-400 hover:text-accent flex items-center justify-center transition-all hover:rotate-90"
                         >
-                            <X size={24} />
+                            <X size={20} className="sm:hidden" />
+                            <X size={28} className="hidden sm:block" />
                         </button>
 
-                        {/* Modal Image Section */}
-                        <div className="md:w-1/2 h-64 md:h-auto relative bg-slate-100">
-                            <img
-                                src={selectedProject.image}
-                                alt={selectedProject.title}
-                                className="w-full h-full object-cover"
-                            />
+                        <div className="lg:col-span-7 bg-slate-100 lg:h-full min-h-[400px]">
+                            <img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover" />
                         </div>
 
-                        {/* Modal Content Section */}
-                        <div className="md:w-1/2 p-8 md:p-10 flex flex-col">
-                            <div className="mb-6">
-                                <span className="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">{selectedProject.category} Project</span>
-                                <h2 className="text-3xl font-extrabold text-slate-900 mb-4">{selectedProject.title}</h2>
-                                <p className="text-slate-600 leading-relaxed">
+                        <div className="lg:col-span-5 p-12 lg:p-16 flex flex-col">
+                            <div className="mb-10">
+                                <div className="text-accent font-black text-xs uppercase tracking-[0.3em] mb-4 flex items-center gap-3">
+                                    <Sparkles size={16} /> Showcase Project
+                                </div>
+                                <h2 className="text-4xl font-black text-primary mb-6">{selectedProject.title}</h2>
+                                <p className="text-slate-600 font-medium leading-relaxed text-lg mb-8">
                                     {selectedProject.description}
                                 </p>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-6 mb-8">
-                                <div>
-                                    <h4 className="text-sm font-bold text-slate-900 mb-2 flex items-center gap-2">
-                                        <User size={16} className="text-accent" /> Client
+                            <div className="grid grid-cols-2 gap-10 mb-10">
+                                <div className="space-y-2">
+                                    <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                                        <User size={14} className="text-accent" /> Partner
                                     </h4>
-                                    <p className="text-sm text-slate-600">{selectedProject.client}</p>
+                                    <p className="font-black text-primary">{selectedProject.client}</p>
                                 </div>
-                                <div>
-                                    <h4 className="text-sm font-bold text-slate-900 mb-2 flex items-center gap-2">
-                                        <Calendar size={16} className="text-accent" /> Date
+                                <div className="space-y-2">
+                                    <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                                        <Calendar size={14} className="text-accent" /> Timeline
                                     </h4>
-                                    <p className="text-sm text-slate-600">{selectedProject.date}</p>
+                                    <p className="font-black text-primary">{selectedProject.date}</p>
                                 </div>
                             </div>
 
-                            <div className="mb-8">
-                                <h4 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
-                                    <Tag size={16} className="text-accent" /> Technologies Used
-                                </h4>
+                            <div className="mb-12">
+                                <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Tech Stack Integration</h4>
                                 <div className="flex flex-wrap gap-2">
                                     {selectedProject.technologies.map((tech, i) => (
-                                        <span key={i} className="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-semibold">
+                                        <span key={i} className="px-5 py-2.5 bg-accent/5 text-accent rounded-2xl text-[11px] font-black uppercase tracking-wider border border-accent/10">
                                             {tech}
                                         </span>
                                     ))}
                                 </div>
                             </div>
 
-                            <div className="mt-auto flex gap-4">
+                            <div className="mt-auto flex flex-col sm:flex-row gap-4">
                                 {selectedProject.link && (
-                                    <a
-                                        href={selectedProject.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="btn btn-primary flex-1 py-3 justify-center bg-primary hover:bg-slate-800 flex items-center gap-2"
-                                    >
-                                        Live Demo <ExternalLink size={18} />
+                                    <a href={selectedProject.link} className="flex-1 btn btn-primary py-5 bg-primary hover:bg-slate-900 flex items-center justify-center gap-3 rounded-2xl">
+                                        Live Experience <ExternalLink size={20} />
                                     </a>
                                 )}
                                 {selectedProject.github && (
-                                    <a
-                                        href={selectedProject.github}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="btn flex-1 py-3 justify-center border-2 border-slate-200 text-slate-700 hover:border-slate-800 hover:text-slate-900 font-bold flex items-center gap-2 rounded-xl"
-                                    >
-                                        <Github size={18} /> Source Code
+                                    <a href={selectedProject.github} className="flex-1 btn py-5 border-2 border-slate-100 text-slate-600 hover:border-primary hover:text-primary font-black flex items-center justify-center gap-3 rounded-2xl transition-all">
+                                        <Github size={20} /> View Source
                                     </a>
                                 )}
                             </div>
                         </div>
-
                     </div>
                 </div>
             )}
@@ -316,3 +292,4 @@ const Portfolio = () => {
 };
 
 export default Portfolio;
+

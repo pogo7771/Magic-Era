@@ -83,38 +83,47 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`lg:hidden bg-white border-t border-slate-100 overflow-y-auto transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[calc(100vh-5rem)] opacity-100' : 'max-h-0 opacity-0'}`}>
-        <div className="px-4 pt-4 pb-20 space-y-2 shadow-inner">
-          <Link to="/" onClick={() => setIsOpen(false)} className="block px-3 py-3 rounded-md text-base font-medium text-slate-700 hover:text-warning hover:bg-slate-50 transition-colors">Home</Link>
-          <Link to="/about" onClick={() => setIsOpen(false)} className="block px-3 py-3 rounded-md text-base font-medium text-slate-700 hover:text-warning hover:bg-slate-50 transition-colors">About Us</Link>
+      <div className={`lg:hidden fixed inset-0 z-40 bg-white/95 backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${isOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`} style={{ top: '5rem' }}>
+        <div className="h-full overflow-y-auto px-6 py-8 pb-32 space-y-6">
+          <div className="space-y-4">
+            <Link to="/" onClick={() => setIsOpen(false)} className="block px-4 py-3 rounded-2xl text-lg font-bold text-slate-800 hover:bg-slate-50 transition-all border border-transparent hover:border-slate-100">Home</Link>
+            <Link to="/about" onClick={() => setIsOpen(false)} className="block px-4 py-3 rounded-2xl text-lg font-bold text-slate-800 hover:bg-slate-50 transition-all border border-transparent hover:border-slate-100">About Us</Link>
 
-          <div>
-            <button
-              onClick={toggleDropdown}
-              className="flex w-full items-center justify-between px-3 py-3 rounded-md text-base font-medium text-slate-700 hover:text-warning hover:bg-slate-50 transition-colors"
-            >
-              <span>Courses</span>
-              <ChevronDown size={16} className={`transform transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
-            </button>
-            {dropdownOpen && (
-              <div className="pl-6 space-y-1 mt-1 border-l-2 border-slate-100 ml-3">
-                {courseLinks.map((course, i) => (
-                  <Link
-                    key={i}
-                    to={course.to}
-                    onClick={() => setIsOpen(false)}
-                    className="block px-3 py-2 rounded-md text-sm font-medium text-slate-500 hover:text-warning transition-colors"
-                  >
-                    {course.name}
-                  </Link>
-                ))}
-              </div>
-            )}
+            <div className="space-y-2">
+              <button
+                onClick={toggleDropdown}
+                className={`flex w-full items-center justify-between px-4 py-3 rounded-2xl text-lg font-bold transition-all border ${dropdownOpen ? 'bg-slate-50 border-slate-100 text-accent' : 'text-slate-800 border-transparent'}`}
+              >
+                <span>Explores Courses</span>
+                <ChevronDown size={20} className={`transform transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {dropdownOpen && (
+                <div className="grid grid-cols-1 gap-2 mt-2 pl-2">
+                  {courseLinks.map((course, i) => (
+                    <Link
+                      key={i}
+                      to={course.to}
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-600 hover:text-accent hover:bg-accent/5 transition-all"
+                    >
+                      <div className="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-accent"></div>
+                      {course.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Link to="/portfolio" onClick={() => setIsOpen(false)} className="block px-4 py-3 rounded-2xl text-lg font-bold text-slate-800 hover:bg-slate-50 transition-all border border-transparent hover:border-slate-100">Portfolio</Link>
+            <Link to="/career" onClick={() => setIsOpen(false)} className="block px-4 py-3 rounded-2xl text-lg font-bold text-slate-800 hover:bg-slate-50 transition-all border border-transparent hover:border-slate-100">Career</Link>
           </div>
 
-          <Link to="/portfolio" onClick={() => setIsOpen(false)} className="block px-3 py-3 rounded-md text-base font-medium text-slate-700 hover:text-warning hover:bg-slate-50 transition-colors">Portfolio</Link>
-          <Link to="/career" onClick={() => setIsOpen(false)} className="block px-3 py-3 rounded-md text-base font-medium text-slate-700 hover:text-warning hover:bg-slate-50 transition-colors">Career</Link>
-          <Link to="/contact" onClick={() => setIsOpen(false)} className="block px-3 py-3 mt-4 text-center rounded-lg bg-primary text-white font-semibold shadow-md">Contact Us</Link>
+          <div className="pt-6 border-t border-slate-100">
+            <Link to="/contact" onClick={() => setIsOpen(false)} className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-primary text-white font-black text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
+              Contact Us <Phone size={20} />
+            </Link>
+          </div>
         </div>
       </div>
     </nav>

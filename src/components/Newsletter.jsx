@@ -18,7 +18,7 @@ const Newsletter = () => {
                                 <Send size={32} />
                             </div>
                             <div>
-                                <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2">Let&apos;s Join To <br /> Our Newsletter</h2>
+                                <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2">Let&apos;s Join Our <br /> Newsletter</h2>
                                 <p className="text-slate-500">Subscribe/Get Notified to get new updates.</p>
                             </div>
                         </div>
@@ -31,13 +31,13 @@ const Newsletter = () => {
                             }} className="relative max-w-lg mx-auto lg:mr-0 group">
                                 <input
                                     type="email"
-                                    className="w-full pl-6 pr-40 py-5 rounded-full bg-white border-2 border-slate-100 focus:border-accent/30 focus:ring-4 focus:ring-accent/10 outline-none transition-all shadow-sm placeholder:text-slate-400 text-slate-800"
-                                    placeholder="Enter your email address..."
+                                    className="w-full pl-6 pr-32 sm:pr-40 py-5 rounded-full bg-white border-2 border-slate-100 focus:border-accent/30 focus:ring-4 focus:ring-accent/10 outline-none transition-all shadow-sm placeholder:text-slate-400 text-slate-800 text-sm sm:text-base"
+                                    placeholder="Enter your email..."
                                     required
                                 />
                                 <button
                                     type="submit"
-                                    className="absolute right-2 top-2 bottom-2 px-8 rounded-full bg-gradient-to-r from-primary to-slate-800 text-white font-bold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 hover:from-slate-800 hover:to-primary transition-all duration-300 hover:scale-105 active:scale-95"
+                                    className="absolute right-2 top-2 bottom-2 px-6 sm:px-8 rounded-full bg-gradient-to-r from-primary to-slate-800 text-white font-bold text-sm sm:text-base shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 hover:from-slate-800 hover:to-primary transition-all duration-300 hover:scale-105 active:scale-95"
                                 >
                                     Subscribe
                                 </button>

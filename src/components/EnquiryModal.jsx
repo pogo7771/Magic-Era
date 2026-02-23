@@ -13,11 +13,30 @@ const EnquiryModal = () => {
     };
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setShow(true);
-        }, 3000);
-        return () => clearTimeout(timer);
+        // Only show on home page and only once per session
+        const isHomePage = window.location.pathname === '/';
+        const modalShown = sessionStorage.getItem('enquiryModalShown');
+
+        if (isHomePage && !modalShown) {
+            const timer = setTimeout(() => {
+                setShow(true);
+                sessionStorage.setItem('enquiryModalShown', 'true');
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
     }, []);
+
+    // Body scroll lock
+    useEffect(() => {
+        if (show) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [show]);
 
     if (!show) return null;
 
@@ -135,17 +154,17 @@ const EnquiryModal = () => {
                             </div>
 
                             {/* Actions */}
-                            <div className="grid grid-cols-2 gap-3 mt-4">
+                            <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3 mt-4">
                                 <button
                                     type="button"
-                                    className="btn btn-secondary flex-1"
+                                    className="btn btn-secondary w-full"
                                     onClick={() => setShow(false)}
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
-                                    className="btn btn-accent flex-1 shadow-xl"
+                                    className="btn btn-accent w-full shadow-xl"
                                 >
                                     Claim Offer
                                 </button>

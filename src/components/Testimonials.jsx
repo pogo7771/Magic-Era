@@ -59,28 +59,28 @@ const Testimonials = () => {
         </div>
 
         {/* --- Vertical Marquee Layout --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 h-[600px] overflow-hidden relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 h-[500px] md:h-[600px] overflow-hidden relative">
           {/* Gradient Masks */}
-          <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-primary to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-slate-900 to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute top-0 left-0 w-full h-24 sm:h-32 bg-gradient-to-b from-primary to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 w-full h-24 sm:h-32 bg-gradient-to-t from-slate-900 to-transparent z-10 pointer-events-none"></div>
 
           {/* Column 1 - Slow Scroll */}
-          <div className="animate-scroll-vertical space-y-8">
+          <div className="animate-scroll-vertical space-y-6 sm:space-y-8">
             {[...testimonials, ...testimonials].map((t, i) => (
               <TestimonialCard key={`col1-${i}`} data={t} index={i} />
             ))}
           </div>
 
-          {/* Column 2 - Reverse/Offset Scroll (Simulated by negative translation start or just different speed/direction if CSS allows, but for now standard vertical scroll with offset content) */}
-          <div className="animate-scroll-vertical space-y-8 hidden md:block" style={{ animationDuration: '25s' }}>
+          {/* Column 2 - Reverse/Offset Scroll */}
+          <div className="animate-scroll-vertical space-y-6 sm:space-y-8 hidden md:block" style={{ animationDuration: '25s' }}>
             {[...testimonials.slice(2), ...testimonials, ...testimonials.slice(0, 2)].map((t, i) => (
               <TestimonialCard key={`col2-${i}`} data={t} index={i} variant="secondary" />
             ))}
           </div>
 
           {/* Column 3 - Slower Scroll */}
-          <div className="animate-scroll-vertical space-y-8 hidden lg:block" style={{ animationDuration: '22s' }}>
-            {[...testimonials.slice(1), ...testimonials, ...testimonials.slice(0, 1)].map((t, i) => (
+          <div className="animate-scroll-vertical space-y-6 sm:space-y-8 hidden lg:block" style={{ animationDuration: '22s' }}>
+            {[...testimonials.slice(4), ...testimonials, ...testimonials.slice(0, 4)].map((t, i) => (
               <TestimonialCard key={`col3-${i}`} data={t} index={i} />
             ))}
           </div>
