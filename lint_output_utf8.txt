@@ -1,7 +1,0 @@
-﻿C:\Users\sachi\OneDrive\Desktop\New folder\src\components\Footer.jsx: line 102, col 17, Error - Using target="_blank" without rel="noreferrer" (which implies rel="noopener") is a security risk in older browsers: see https://mathiasbynens.github.io/rel-noopener/#recommendations (react/jsx-no-target-blank)
-C:\Users\sachi\OneDrive\Desktop\New folder\src\components\Testimonials.jsx: line 101, col 7, Error - `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`. (react/no-unescaped-entities)
-C:\Users\sachi\OneDrive\Desktop\New folder\src\components\Testimonials.jsx: line 101, col 19, Error - `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`. (react/no-unescaped-entities)
-C:\Users\sachi\OneDrive\Desktop\New folder\src\context\ToastContext.jsx: line 1, col 32, Error - 'useContext' is defined but never used. Allowed unused vars must match /^[A-Z_]/u. (no-unused-vars)
-C:\Users\sachi\OneDrive\Desktop\New folder\src\context\ToastContext.jsx: line 4, col 14, Warning - Fast refresh only works when a file only exports components. Move your React context(s) to a separate file. (react-refresh/only-export-components)
-
-5 problems
