@@ -138,28 +138,32 @@ const HeaderContent = () => (
 );
 
 const CategoryFilter = ({ categories, currentFilter, setFilter }) => (
-  <div
-    className="flex overflow-x-auto gap-3 pb-6 mb-10 -mx-4 px-4 sm:mx-0 sm:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] snap-x snap-mandatory"
-    role="tablist"
-    aria-label="Filter courses by category"
-  >
-    {categories.map((category) => {
-      const isSelected = currentFilter === category;
-      return (
-        <button
-          key={category}
-          role="tab"
-          aria-selected={isSelected}
-          onClick={() => setFilter(category)}
-          className={`whitespace-nowrap rounded-full px-7 py-3 text-sm font-bold transition-all duration-300 snap-center focus:outline-none focus:ring-4 focus:ring-accent/20 ${isSelected
+  <div className="relative -mx-4 sm:mx-0 mb-10">
+    <div className="absolute left-0 top-0 bottom-6 w-6 bg-gradient-to-r from-slate-50 to-transparent z-10 sm:hidden pointer-events-none" />
+    <div
+      className="flex overflow-x-auto gap-3 pb-6 px-4 sm:px-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] snap-x snap-mandatory scroll-smooth"
+      role="tablist"
+      aria-label="Filter courses by category"
+    >
+      {categories.map((category) => {
+        const isSelected = currentFilter === category;
+        return (
+          <button
+            key={category}
+            role="tab"
+            aria-selected={isSelected}
+            onClick={() => setFilter(category)}
+            className={`whitespace-nowrap rounded-full px-7 py-3 text-sm font-bold transition-all duration-300 snap-center focus:outline-none focus:ring-4 focus:ring-accent/20 ${isSelected
               ? 'bg-slate-900 text-white shadow-[0_8px_20px_-6px_rgba(15,23,42,0.6)] scale-105'
-              : 'bg-white text-slate-600 border border-slate-200/60 hover:border-slate-300 hover:text-slate-900 hover:bg-slate-50 hover:shadow-sm'
-            }`}
-        >
-          {category}
-        </button>
-      )
-    })}
+              : 'bg-white text-slate-600 border border-slate-200/60 hover:border-slate-300 hover:text-slate-900 hover:bg-slate-50 hover:shadow-sm active:scale-95'
+              }`}
+          >
+            {category}
+          </button>
+        )
+      })}
+    </div>
+    <div className="absolute right-0 top-0 bottom-6 w-12 bg-gradient-to-l from-slate-50 to-transparent z-10 sm:hidden pointer-events-none" />
   </div>
 );
 

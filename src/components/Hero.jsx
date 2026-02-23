@@ -61,31 +61,33 @@ const Hero = () => {
               />
             </div>
 
-            {/* Floating Badge 1 - Hidden on small mobile */}
-            <div className="hidden sm:flex absolute -top-10 -left-6 lg:-left-12 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-2xl items-center gap-4 animate-bounce-slow z-20 border border-slate-50">
-              <div className="bg-green-100 p-3 rounded-full text-green-600">
-                <Users size={24} />
+            {/* Floating Badge 1 */}
+            <div className="absolute -top-4 -left-2 sm:-top-10 sm:-left-6 lg:-left-12 bg-white/90 backdrop-blur-md p-2.5 sm:p-4 rounded-xl sm:rounded-2xl shadow-xl sm:shadow-2xl flex items-center gap-2 sm:gap-4 animate-bounce-slow z-20 border border-slate-50 origin-bottom-right transition-transform hover:scale-105">
+              <div className="bg-green-100 p-2 sm:p-3 rounded-full text-green-600">
+                <Users className="w-4 h-4 sm:w-6 sm:h-6" />
               </div>
-              <div className="hidden md:block">
-                <div className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Global Community</div>
-                <div className="text-2xl font-black text-slate-800">1K+ <span className="text-sm font-medium text-slate-400 ml-1">Students</span></div>
+              <div className="hidden sm:block">
+                <div className="text-[8px] sm:text-[10px] text-slate-400 font-black uppercase tracking-widest">Global Community</div>
+                <div className="text-lg sm:text-2xl font-black text-slate-800">1K+ <span className="text-xs sm:text-sm font-medium text-slate-400 ml-1">Students</span></div>
               </div>
-              <div className="md:hidden">
-                <div className="text-lg font-black text-slate-800 text-center">1K+</div>
+              <div className="sm:hidden pr-1">
+                <div className="text-[10px] text-slate-400 font-black uppercase tracking-widest leading-none mb-0.5">Community</div>
+                <div className="text-sm font-black text-slate-800 leading-none">1K+</div>
               </div>
             </div>
 
-            {/* Floating Badge 2 - Hidden on small mobile */}
-            <div className="hidden sm:flex absolute -bottom-10 -right-4 lg:-right-6 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-2xl items-center gap-4 animate-bounce-slow-delayed z-20 border border-slate-50">
-              <div className="bg-yellow-100 p-3 rounded-full text-yellow-600">
-                <GraduationCap size={24} />
+            {/* Floating Badge 2 */}
+            <div className="absolute -bottom-4 -right-2 sm:-bottom-10 sm:-right-4 lg:-right-6 bg-white/90 backdrop-blur-md p-2.5 sm:p-4 rounded-xl sm:rounded-2xl shadow-xl sm:shadow-2xl flex items-center gap-2 sm:gap-4 animate-bounce-slow-delayed z-20 border border-slate-50 origin-top-left transition-transform hover:scale-105">
+              <div className="bg-yellow-100 p-2 sm:p-3 rounded-full text-yellow-600">
+                <GraduationCap className="w-4 h-4 sm:w-6 sm:h-6" />
               </div>
-              <div className="hidden md:block">
-                <div className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Success Rate</div>
-                <div className="text-2xl font-black text-slate-800">100% <span className="text-sm font-medium text-slate-400 ml-1">Placement</span></div>
+              <div className="hidden sm:block">
+                <div className="text-[8px] sm:text-[10px] text-slate-400 font-black uppercase tracking-widest">Success Rate</div>
+                <div className="text-lg sm:text-2xl font-black text-slate-800">100% <span className="text-xs sm:text-sm font-medium text-slate-400 ml-1">Placement</span></div>
               </div>
-              <div className="md:hidden">
-                <div className="text-lg font-black text-slate-800 text-center">100%</div>
+              <div className="sm:hidden pr-1">
+                <div className="text-[10px] text-slate-400 font-black uppercase tracking-widest leading-none mb-0.5">Success</div>
+                <div className="text-sm font-black text-slate-800 leading-none">100%</div>
               </div>
             </div>
           </div>

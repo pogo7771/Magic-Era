@@ -349,7 +349,7 @@ const CourseDetail = () => {
         ]}
       />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 -mt-20 pb-24 relative z-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 -mt-20 pb-36 lg:pb-24 relative z-20">
         <div className="grid lg:grid-cols-12 gap-12 items-start">
 
           {/* Main Content Area */}
@@ -538,6 +538,22 @@ const CourseDetail = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Mobile Sticky Bottom CTA */}
+      <div className="lg:hidden fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-xl border-t border-slate-200/50 p-4 sm:p-5 shadow-[0_-10px_40px_rgba(0,0,0,0.06)] z-40 flex items-center justify-between pb-[calc(env(safe-area-inset-bottom)+1rem)] transition-transform duration-300">
+        <div>
+          <div className="flex flex-col">
+            <span className="text-slate-400 font-bold line-through text-xs sm:text-sm">₹15,000</span>
+            <span className="text-primary font-black text-xl sm:text-2xl leading-none">₹7,499</span>
+          </div>
+        </div>
+        <button
+          onClick={handleEnrollClick}
+          className="bg-primary text-white px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl font-black shadow-xl shadow-primary/25 hover:bg-accent hover:shadow-accent/40 hover:-translate-y-0.5 active:scale-95 transition-all duration-300"
+        >
+          Enroll Now
+        </button>
       </div>
 
       {/* Simple Enrollment Modal */}
